@@ -1,4 +1,6 @@
-project(animaDistortionCorrectionLib)
+if(BUILD_TOOLS)
+
+project(animaDistortionCorrection)
 
 ## #############################################################################
 ## List Sources
@@ -9,14 +11,13 @@ list_source_files(${PROJECT_NAME}
   )
 
 ## #############################################################################
-## add lib
+## add executable
 ## #############################################################################
 
-add_library(${PROJECT_NAME}
+add_executable(${PROJECT_NAME}
   ${${PROJECT_NAME}_CFILES}
   )
 
-set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 
 ## #############################################################################
 ## Link
@@ -26,20 +27,10 @@ target_link_libraries(${PROJECT_NAME}
   ${ITKIO_LIBRARIES}
   )
 
-################################################################################
-# Auto generate the export file for the libs
-################################################################################
-
-generate_export_header(${PROJECT_NAME}
-  STATIC_DEFINE ${PROJECT_NAME}_BUILT_AS_STATIC
-  EXPORT_FILE_NAME "${PROJECT_NAME}Export.h"
-  )
-
-
 ## #############################################################################
 ## install
 ## #############################################################################
 
-set_lib_install_rules(${PROJECT_NAME})
+set_exe_install_rules(${PROJECT_NAME})
 
-add_subdirectory(executable)
+endif()
